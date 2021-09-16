@@ -22,22 +22,49 @@ class ApiIncidentController extends RestController
 		$this->response($incidents, 200);
 	}
 
-	public function storeStudent_post()
+	public function storeIncident_get($member_name,$email,$phone,$incident_type,$incident_priority,$description
+										,$incident_date,$incident_time,$coordinates,$full_address,$location_description,
+									   $gnd,$trap_code,$incident_status)
 	{
-		$students = new IncidentModel;
+		if($gnd=="NULL"){
+			$gnd="";
+		}
+		if($trap_code=="NULL"){
+			$trap_code="";
+		}
+		if($description=="NULL"){
+			$description="";
+		}
+		if($coordinates=="NULL"){
+			$coordinates="";
+		}
+		if($email=="NULL"){
+			$email="";
+		}
+
+		$incidents = new IncidentModel;
 		$data = [
-			'name' =>  "Neesham",
-			'class' => "13m6",
-			'email' => "neesham@gmail.com",
-			'created_at'=>"2021-09-12 18:43:27",
-			'updated_at'=>"2021-09-12 18:43:27"
+			'member_name' => str_replace("%20"," ",$member_name),
+			'email'=>$email,
+			'phone'=>$phone,
+			'incident_type'=>$incident_type,
+			'incident_priority'=>$incident_priority,
+			'description'=>str_replace("%20"," ",$description),
+			'incident_date'=>$incident_date,
+			'incident_time'=>$incident_time,
+			'coordinates'=>$coordinates,
+			'full_address'=>str_replace("%20"," ",$full_address),
+			'location_description'=>str_replace("%20"," ",$location_description),
+			'gnd'=>str_replace("%20"," ",$gnd),
+			'trap_code'=>$trap_code,
+			'incident_status'=>$incident_status
 		];
-		$result = $students->insert_student($data);
+		$result = $incidents->insert_incident($data);
 		if($result > 0)
 		{
 			$this->response([
 				'status' => true,
-				'message' => 'NEW STUDENT CREATED'
+				'message' => 'NEW INCIDENT CREATED'
 			], RestController::HTTP_OK);
 		}
 		else

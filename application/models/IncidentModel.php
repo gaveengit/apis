@@ -11,10 +11,10 @@ class IncidentModel extends CI_Model
 		return $query->result();
 	}
 
-	public function insert_student($data)
+	public function insert_incident($data)
 	{
 		$this->load->database();
-		return $this->db->insert('students', $data);
+		return $this->db->insert('incident', $data);
 	}
 
 	public function edit_student($id)
