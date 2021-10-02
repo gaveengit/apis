@@ -22,7 +22,7 @@ class IncidentModel extends CI_Model
 		$this->load->database();
 		$this->db->where('id',$id);
 		$query = $this->db->get('students');
-		return $query->row();
+		return $query->row;
 	}
 
 	public function update_student($data,$id)
